@@ -1,34 +1,29 @@
-﻿namespace UI;
+﻿using System.Text;
 
-/// <summary>
-/// This contains and handles the game logic
-/// </summary>
+namespace UI;
+
 public class GameLogic : IGameLogic
 {
     public string GenerateCorrectAnswer()
     {
+        var availableDigits = Enumerable.Range(0, 10).ToList();
+        var correctAnswer = new StringBuilder();
         Random randomGenerator = new Random();
-        string goal = "";
+        
         for (int i = 0; i < 4; i++)
         {
-            int random = randomGenerator.Next(10);
-            string randomDigit = "" + random;
-            while (goal.Contains(randomDigit))
-            {
-                random = randomGenerator.Next(10);
-                randomDigit = "" + random;
-            }
-
-            goal = goal + randomDigit;
+            int index = randomGenerator.Next(availableDigits.Count);
+            int chosenDigit = availableDigits[index];
+            correctAnswer.Append(chosenDigit);
+            availableDigits.Remove(chosenDigit);
         }
 
-        return goal;
+        return correctAnswer.ToString();
     }
 
     public string CheckBullsAndCows(string goal, string guess)
     {
         int cows = 0, bulls = 0;
-        guess += "    "; // if player entered less than 4 chars
         for (int i = 0; i < 4; i++)
         {
             for (int j = 0; j < 4; j++)

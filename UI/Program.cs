@@ -4,12 +4,12 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        IGameLogic _gameLogic = new GameLogic();
-        IScoreboardManager _scoreboardManager = new ScoreboardManager();
-        IUserInterfaceManager _userInterfaceManager = new UserInterfaceManager();
+        var gameLogic = new GameLogic();
+        var scoreboardManager = new ScoreboardManager();
+        var userInterfaceManager = new UserInterfaceManager();
 
-        IGameController game = new GameController(_gameLogic, _scoreboardManager, _userInterfaceManager);
+        var gameController = new GameController(gameLogic, scoreboardManager, userInterfaceManager);
 
-        game.StartGame();
+        gameController.StartGame();
     }
 }

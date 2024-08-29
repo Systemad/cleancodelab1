@@ -2,25 +2,27 @@
 
 public class ScoreboardManager : IScoreboardManager
 {
+    private static readonly string SEPARATOR = "#&#";
+    private static readonly string RESULT_FILENAME = "result.txt";
     public void WriteResult(string playerName, string numberOfGuesses)
     {
-        using (StreamWriter resultOutput = new StreamWriter("result.txt", append: true))
+        using (var resultOutput = new StreamWriter(RESULT_FILENAME, append: true))
         {
-            resultOutput.WriteLine(playerName + "#&#" + numberOfGuesses);
+            resultOutput.WriteLine($"{playerName}{SEPARATOR}{numberOfGuesses}");
             resultOutput.Close();
         }
     }
 
-    public void PrintResults()
+    // return this as a list<player> into gamecontroller, then in use userfacemanager.printleaderborard(playerlist)
+    public List<PlayerData> ReturnResults()
     {
         var leaderboard = new List<PlayerData>();
-
-        using (StreamReader fileInput = new StreamReader("result.txt"))
+        using (StreamReader fileInput = new StreamReader(RESULT_FILENAME))
         {
             string line;
             while ((line = fileInput.ReadLine()) != null)
             {
-                string[] nameAndScore = line.Split(new string[] { "#&#" }, StringSplitOptions.None);
+                string[] nameAndScore = line.Split(new string[] { SEPARATOR }, StringSplitOptions.None);
                 string name = nameAndScore[0];
                 int guesses = Convert.ToInt32(nameAndScore[1]);
                 
@@ -38,11 +40,8 @@ public class ScoreboardManager : IScoreboardManager
             }
         }
 
-        leaderboard.Sort((p1, p2) => p1.Average().CompareTo(p2.Average()));
-        Console.WriteLine("Player   games average");
-        foreach (PlayerData playerData in leaderboard)
-        {
-            Console.WriteLine(string.Format("{0,-9}{1,5:D}{2,9:F2}", playerData.Name, playerData.NumberOfGames, playerData.Average()));
-        }
+        leaderboard.Sort((p1, p2) => p1.AverageGuesses().CompareTo(p2.AverageGuesses()));
+        return leaderboard;
+
     }
 }

@@ -19,7 +19,9 @@ public class PlayerData
         NumberOfGames++;
     }
 
-    public double Average()
+    public string FormatStats() => $"{Name,-9}{NumberOfGames,5:D}{AverageGuesses(),9:F2}";
+
+    public double AverageGuesses()
     {
         return (double)_totalGuess / NumberOfGames;
     }
