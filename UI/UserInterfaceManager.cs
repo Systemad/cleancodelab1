@@ -7,9 +7,9 @@ public class UserInterfaceManager : IUserInterfaceManager
         string name;
         do
         {
-            Console.WriteLine("Enter your username\n");
+            Console.WriteLine("Enter your username; it must be at least 2 characters!\n");
             name = Console.ReadLine();
-        } while (string.IsNullOrEmpty(name) || name.Length < 1);
+        } while (string.IsNullOrEmpty(name) || name.Length < 2);
 
         return name;
     }
@@ -38,7 +38,6 @@ public class UserInterfaceManager : IUserInterfaceManager
             return true;
 
         continuePlayingResponse = continuePlayingResponse.Trim().ToLower();
-        
         return !continuePlayingResponse.StartsWith('n');
     }
 
@@ -47,9 +46,8 @@ public class UserInterfaceManager : IUserInterfaceManager
         Console.WriteLine("Player - Total Games - Average Guesses");
         foreach (PlayerData playerData in players)
         {
-            Console.WriteLine(string.Format("{0,-9}{1,5:D}{2,9:F2}", playerData.Name, playerData.NumberOfGames, playerData.AverageGuesses()));
-
-            //Console.WriteLine(playerData.FormatStats());
+            //Console.WriteLine(string.Format("{0,-9}{1,5:D}{2,9:F2}", playerData.Name, playerData.NumberOfGames, playerData.AverageGuesses()));
+            Console.WriteLine(playerData.FormatStats());
         }
     }
 }

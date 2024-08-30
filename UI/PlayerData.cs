@@ -3,7 +3,7 @@
 public class PlayerData
 {
     public string Name { get; set; }
-    public int NumberOfGames { get; private set; }
+    private int NumberOfGames { get; set; }
     private int _totalGuess;
 
     public PlayerData(string name, int guesses)

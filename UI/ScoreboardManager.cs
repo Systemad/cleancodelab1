@@ -13,7 +13,6 @@ public class ScoreboardManager : IScoreboardManager
         }
     }
 
-    // return this as a list<player> into gamecontroller, then in use userfacemanager.printleaderborard(playerlist)
     public List<PlayerData> ReturnResults()
     {
         var leaderboard = new List<PlayerData>();
@@ -42,6 +41,5 @@ public class ScoreboardManager : IScoreboardManager
 
         leaderboard.Sort((p1, p2) => p1.AverageGuesses().CompareTo(p2.AverageGuesses()));
         return leaderboard;
-
     }
 }

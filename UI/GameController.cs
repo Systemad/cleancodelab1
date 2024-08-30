@@ -40,7 +40,7 @@ public class GameController : IGameController
 
             _scoreboardManager.WriteResult(playerName, playerGuesses);
             DisplayLeaderboard();
-            Console.WriteLine("Correct, it took " + numberOfGuesses + " guesses\nContinue?");
+            _userInterfaceManager.DisplayMessage("Correct, it took " + numberOfGuesses + " guesses\nContinue?");
             isGameRunning = _userInterfaceManager.AskToContinueGame();
         }
     }
