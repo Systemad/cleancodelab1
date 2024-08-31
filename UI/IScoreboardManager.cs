@@ -2,6 +2,6 @@
 
 public interface IScoreboardManager
 {
-    public void WriteResult(string playerName, string numberOfGuesses);
-    public List<PlayerData> ReturnResults();
+    public void WriteResult(string playerName, int numberOfGuesses);
+    public List<PlayerData> GetResults();
 }

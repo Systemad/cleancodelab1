@@ -6,5 +6,5 @@ public interface IUserInterfaceManager
     void DisplayMessage(string message);
     string GetPlayerGuess();
     bool AskToContinueGame();
-    void PrintLeaderboard(List<PlayerData> players);
+    void DisplayLeaderboard(List<PlayerData> players);
 }

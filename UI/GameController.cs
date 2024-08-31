@@ -25,20 +25,18 @@ public class GameController : IGameController
             _userInterfaceManager.DisplayMessage("New game:\n" );
             _userInterfaceManager.DisplayMessage("For practice, number is: " + goal + "\n");
 
-            string playerGuesses = _userInterfaceManager.GetPlayerGuess();
             var numberOfGuesses = 1;
-            string bullsAndCowsResult = _gameLogic.CheckBullsAndCows(goal, playerGuesses);
-            _userInterfaceManager.DisplayMessage(bullsAndCowsResult + "\n");
-
-            while (bullsAndCowsResult != "BBBB,")
+            BullsAndCowsResult result;
+            
+            do
             {
                 numberOfGuesses++;
-                playerGuesses = _userInterfaceManager.GetPlayerGuess();
-                bullsAndCowsResult = _gameLogic.CheckBullsAndCows(goal, playerGuesses);
-                Console.WriteLine(bullsAndCowsResult + "\n");
-            }
+                var playerGuess = _userInterfaceManager.GetPlayerGuess();
+                result = _gameLogic.CheckBullsAndCows(goal, playerGuess);
+                _userInterfaceManager.DisplayMessage(result.ResultMessage + "\n");
+            } while (!result.IsCorrect);
 
-            _scoreboardManager.WriteResult(playerName, playerGuesses);
+            _scoreboardManager.WriteResult(playerName, numberOfGuesses);
             DisplayLeaderboard();
             _userInterfaceManager.DisplayMessage("Correct, it took " + numberOfGuesses + " guesses\nContinue?");
             isGameRunning = _userInterfaceManager.AskToContinueGame();
@@ -47,7 +45,7 @@ public class GameController : IGameController
 
     public void DisplayLeaderboard()
     {
-        var results = _scoreboardManager.ReturnResults();
-        _userInterfaceManager.PrintLeaderboard(results);
+        var results = _scoreboardManager.GetResults();
+        _userInterfaceManager.DisplayLeaderboard(results);
     }
 }

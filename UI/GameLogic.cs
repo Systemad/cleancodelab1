@@ -4,6 +4,7 @@ namespace UI;
 
 public class GameLogic : IGameLogic
 {
+    
     public string GenerateCorrectAnswer()
     {
         var availableDigits = Enumerable.Range(0, 10).ToList();
@@ -21,27 +22,24 @@ public class GameLogic : IGameLogic
         return correctAnswer.ToString();
     }
 
-    public string CheckBullsAndCows(string goal, string guess)
+    public BullsAndCowsResult CheckBullsAndCows(string goal, string guess)
     {
         int cows = 0, bulls = 0;
-        for (int i = 0; i < 4; i++)
+
+        for (int i = 0; i < goal.Length; i++)
         {
-            for (int j = 0; j < 4; j++)
+            if (goal[i] == guess[i])
             {
-                if (goal[i] == guess[j])
-                {
-                    if (i == j)
-                    {
-                        bulls++;
-                    }
-                    else
-                    {
-                        cows++;
-                    }
-                }
+                bulls++;
+            }
+            else if (goal.Contains(guess[i]))
+            {
+                cows++;
             }
         }
 
-        return "BBBB".Substring(0, bulls) + "," + "CCCC".Substring(0, cows);
+        var result = new string(Constants.BullChar, bulls) + Constants.Separator + new string(Constants.CowChar, cows);
+        var isCorrect = bulls == goal.Length;
+        return new BullsAndCowsResult(result, isCorrect);
     }
 }

@@ -41,7 +41,7 @@ public class UserInterfaceManager : IUserInterfaceManager
         return !continuePlayingResponse.StartsWith('n');
     }
 
-    public void PrintLeaderboard(List<PlayerData> players)
+    public void DisplayLeaderboard(List<PlayerData> players)
     {
         Console.WriteLine("Player - Total Games - Average Guesses");
         foreach (PlayerData playerData in players)

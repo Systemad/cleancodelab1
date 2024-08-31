@@ -4,7 +4,7 @@ public class ScoreboardManager : IScoreboardManager
 {
     private static readonly string SEPARATOR = "#&#";
     private static readonly string RESULT_FILENAME = "result.txt";
-    public void WriteResult(string playerName, string numberOfGuesses)
+    public void WriteResult(string playerName, int numberOfGuesses)
     {
         using (var resultOutput = new StreamWriter(RESULT_FILENAME, append: true))
         {
@@ -13,7 +13,7 @@ public class ScoreboardManager : IScoreboardManager
         }
     }
 
-    public List<PlayerData> ReturnResults()
+    public List<PlayerData> GetResults()
     {
         var leaderboard = new List<PlayerData>();
         using (StreamReader fileInput = new StreamReader(RESULT_FILENAME))
