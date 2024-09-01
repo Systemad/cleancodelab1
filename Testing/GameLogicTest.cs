@@ -5,64 +5,57 @@ namespace Testing;
 public class GameLogicTest
 {
     [Fact]
-    public void Check_Correct_Answer_Lenght()
+    public void GenerateCorrectAnswer_ShouldReturnFourDigitString()
     {
         var gameLogic = new GameLogic();
-        var correctAnswer = gameLogic.GenerateCorrectAnswer();
-        Assert.Equal(4, correctAnswer.Length);
+        var answer = gameLogic.GenerateCorrectAnswer();
+        Assert.Equal(Constants.CorrectAnswerLenght, answer.Length);
     }
     
     [Fact]
-    public void Check_Correct_Answer_IsUnique()
+    public void GenerateCorrectAnswer_ShouldContainUniqueDigits()
     {
         var gameLogic = new GameLogic();
-        var correctAnswer = gameLogic.GenerateCorrectAnswer();
-        var isUnique = correctAnswer.Distinct().Count() == correctAnswer.Length;
+        var answer = gameLogic.GenerateCorrectAnswer();
+        var isUnique = answer.Distinct().Count() == answer.Length;
+        
         Assert.True(isUnique, "All digits should be unique!");
     }
     
     [Fact]
-    public void CheckCorrect_Returns_Digits_ZeroToFour()
+    public void GenerateCorrectAnswer_ShouldContainDigitsOneToNine()
     {
         var gameLogic = new GameLogic();
-        var correctAnswer = gameLogic.GenerateCorrectAnswer();
-        var allDigitsAreValid = correctAnswer.All(d => d is >= '0' and <= '9');
-        Assert.True(allDigitsAreValid, "Each digit should be between 0-9");
+        var answer = gameLogic.GenerateCorrectAnswer();
+        var allDigitsAreValid = answer.All(d => d is >= Constants.Zero and <= Constants.Nine);
+        
+        Assert.True(allDigitsAreValid, $"Each digit should be between {Constants.Zero}-{Constants.Nine}");
     }
 
     [Fact]
-    public void CheckCorrectAnswer_ReturnsFourBulls()
+    public void CheckBullsAndCows_ShouldReturnFourBullsForCorrectGuess()
     {
         var gameLogic = new GameLogic();
-        var correctAnswer = "1234";
-        var guess = "1234";
+        var result = gameLogic.CheckBullsAndCows(Constants.CorrectAnswerOne, Constants.CorrectGuessOne);
 
-        var result = gameLogic.CheckBullsAndCows(correctAnswer, guess);
-
-        Assert.Equal("BBBB,", result.ResultMessage); 
+        Assert.Equal(Constants.FourBulls, result.ResultMessage); 
     }
     
     [Fact]
-    public void CheckBullsAndCows_ShouldReturnNoBullsOrCowsWhenNoMatches()
+    public void CheckBullsAndCows_ShouldReturnNoBullsOrCowsForNonMatchingGuess()
     {
         var gameLogic = new GameLogic();
-        var correctAnswer = "1234";
-        var guess = "5678";
+        var result = gameLogic.CheckBullsAndCows(Constants.CorrectAnswerOne, Constants.RandomGuessOne);
 
-        var result = gameLogic.CheckBullsAndCows(correctAnswer, guess);
-
-        Assert.Equal(",", result.ResultMessage); 
+        Assert.Equal(Constants.ZeroBullsZeroCows, result.ResultMessage); 
     }
     
     [Fact]
     public void CheckBullsAndCows_ShouldReturnCorrectFormatForMixedBullsAndCows()
     {
         var gameLogic = new GameLogic();
-        var goal = "1234";
-        var guess = "1324";
-        var result = gameLogic.CheckBullsAndCows(goal, guess);
+        var result = gameLogic.CheckBullsAndCows(Constants.CorrectAnswerOne, Constants.RandomGuessTwo);
 
-        Assert.Equal("BB,CC", result.ResultMessage); 
-        Assert.False(result.IsCorrect);
+        Assert.Equal(Constants.TwoBullsTwoCows, result.ResultMessage); 
     }
 }

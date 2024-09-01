@@ -1,4 +1,7 @@
-﻿namespace UI;
+﻿using UI.Scoreboard;
+using UI.UserInterface;
+
+namespace UI.Controller;
 
 public class GameController : IGameController
 {
@@ -21,31 +24,38 @@ public class GameController : IGameController
 
         while (isGameRunning)
         {
-            string goal = _gameLogic.GenerateCorrectAnswer();
+            string correctAnswer = _gameLogic.GenerateCorrectAnswer();
             _userInterfaceManager.DisplayMessage("New game:\n" );
-            _userInterfaceManager.DisplayMessage("For practice, number is: " + goal + "\n");
+            _userInterfaceManager.DisplayMessage("For practice, number is: " + correctAnswer + "\n");
 
-            var numberOfGuesses = 1;
+            var numberOfGuesses = 0;
             BullsAndCowsResult result;
             
             do
             {
                 numberOfGuesses++;
                 var playerGuess = _userInterfaceManager.GetPlayerGuess();
-                result = _gameLogic.CheckBullsAndCows(goal, playerGuess);
+                result = _gameLogic.CheckBullsAndCows(correctAnswer, playerGuess);
                 _userInterfaceManager.DisplayMessage(result.ResultMessage + "\n");
             } while (!result.IsCorrect);
 
-            _scoreboardManager.WriteResult(playerName, numberOfGuesses);
+            _scoreboardManager.WritePlayerResult(playerName, numberOfGuesses);
             DisplayLeaderboard();
-            _userInterfaceManager.DisplayMessage("Correct, it took " + numberOfGuesses + " guesses\nContinue?");
-            isGameRunning = _userInterfaceManager.AskToContinueGame();
+            _userInterfaceManager.DisplayMessage("Correct, it took " + numberOfGuesses + " guesses");
+            isGameRunning = AskPlayerToContinue();
         }
+        
     }
 
     public void DisplayLeaderboard()
     {
-        var results = _scoreboardManager.GetResults();
+        var results = _scoreboardManager.GetLeaderboard();
         _userInterfaceManager.DisplayLeaderboard(results);
+    }
+    
+    private bool AskPlayerToContinue()
+    {
+        _userInterfaceManager.DisplayMessage("Do you play to play continue playing?");
+        return _userInterfaceManager.AskToContinueGame();
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace UI;
+﻿namespace UI.UserInterface;
 
 public class UserInterfaceManager : IUserInterfaceManager
 {
@@ -11,6 +11,7 @@ public class UserInterfaceManager : IUserInterfaceManager
             name = Console.ReadLine();
         } while (string.IsNullOrEmpty(name) || name.Length < 2);
 
+        Console.WriteLine($"Your name is {name} \n");
         return name;
     }
 
@@ -21,7 +22,7 @@ public class UserInterfaceManager : IUserInterfaceManager
         string guess;
         do
         {
-            Console.WriteLine("Enter a 4 digit guess\n");
+            Console.WriteLine("Enter a 4 digit guess!\n");
             guess = Console.ReadLine();
         } while (string.IsNullOrEmpty(guess) || guess.Length != 4);
 
@@ -46,8 +47,8 @@ public class UserInterfaceManager : IUserInterfaceManager
         Console.WriteLine("Player - Total Games - Average Guesses");
         foreach (PlayerData playerData in players)
         {
-            //Console.WriteLine(string.Format("{0,-9}{1,5:D}{2,9:F2}", playerData.Name, playerData.NumberOfGames, playerData.AverageGuesses()));
-            Console.WriteLine(playerData.FormatStats());
+            var formattedStat = playerData.FormatStats();
+            Console.WriteLine(formattedStat);
         }
     }
 }

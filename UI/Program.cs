@@ -1,4 +1,8 @@
-﻿namespace UI;
+﻿using UI.Controller;
+using UI.Scoreboard;
+using UI.UserInterface;
+
+namespace UI;
 
 public class Program
 {

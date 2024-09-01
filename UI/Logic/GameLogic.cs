@@ -9,12 +9,12 @@ public class GameLogic : IGameLogic
     {
         var availableDigits = Enumerable.Range(0, 10).ToList();
         var correctAnswer = new StringBuilder();
-        Random randomGenerator = new Random();
+        var randomGenerator = new Random();
         
         for (int i = 0; i < 4; i++)
         {
-            int index = randomGenerator.Next(availableDigits.Count);
-            int chosenDigit = availableDigits[index];
+            var index = randomGenerator.Next(availableDigits.Count);
+            var chosenDigit = availableDigits[index];
             correctAnswer.Append(chosenDigit);
             availableDigits.Remove(chosenDigit);
         }
@@ -26,7 +26,7 @@ public class GameLogic : IGameLogic
     {
         int cows = 0, bulls = 0;
 
-        for (int i = 0; i < goal.Length; i++)
+        for (var i = 0; i < goal.Length; i++)
         {
             if (goal[i] == guess[i])
             {

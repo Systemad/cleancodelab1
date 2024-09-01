@@ -26,9 +26,13 @@ public class PlayerData
         return (double)_totalGuess / NumberOfGames;
     }
 
-    public override bool Equals(Object p)
+    public override bool Equals(object? obj)
     {
-        return Name.Equals(((PlayerData)p).Name);
+        if (obj is PlayerData playerData)
+        {
+            return Name.Equals(playerData.Name);
+        }
+        return false;
     }
 
     public override int GetHashCode()

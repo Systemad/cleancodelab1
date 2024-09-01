@@ -1,4 +1,4 @@
-﻿namespace UI;
+﻿namespace UI.UserInterface;
 
 public interface IUserInterfaceManager
 {
