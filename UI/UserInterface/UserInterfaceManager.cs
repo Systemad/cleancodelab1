@@ -30,16 +30,12 @@ public class UserInterfaceManager : IUserInterfaceManager
         return guess;
     }
 
-    public bool AskToContinueGame()
+    public bool AskPlayerToPlayAgain()
     {
-        string continuePlayingResponse = Console.ReadLine();
-
-        // if user doesn't enter anything, assume it's a yes
-        if (string.IsNullOrEmpty(continuePlayingResponse))
-            return true;
-
-        continuePlayingResponse = continuePlayingResponse.Trim().ToLower();
-        return !continuePlayingResponse.StartsWith('n');
+        // assume its a yes if no answer is given
+        var continuePlayingResponse = Console.ReadLine().Trim().ToLower();
+        var playAgain = string.IsNullOrEmpty(continuePlayingResponse) || !continuePlayingResponse.StartsWith('n');
+        return playAgain;
     }
 
     public void DisplayLeaderboard(List<PlayerData> players)

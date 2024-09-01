@@ -4,18 +4,18 @@ public class PlayerData
 {
     public string Name { get; set; }
     private int NumberOfGames { get; set; }
-    private int _totalGuess;
+    private int TotalNumberOfGuess { get; set; }
 
-    public PlayerData(string name, int guesses)
+    public PlayerData(string name, int numberOfGuesses)
     {
         Name = name;
         NumberOfGames = 1;
-        _totalGuess = guesses;
+        TotalNumberOfGuess = numberOfGuesses;
     }
 
-    public void Update(int guesses)
+    public void AddGame(int guesses)
     {
-        _totalGuess += guesses;
+        TotalNumberOfGuess += guesses;
         NumberOfGames++;
     }
 
@@ -23,7 +23,7 @@ public class PlayerData
 
     public double AverageGuesses()
     {
-        return (double)_totalGuess / NumberOfGames;
+        return (double)TotalNumberOfGuess / NumberOfGames;
     }
 
     public override bool Equals(object? obj)
@@ -38,5 +38,10 @@ public class PlayerData
     public override int GetHashCode()
     {
         return Name.GetHashCode();
+    }
+    
+    public int GetGuesses()
+    {
+        return TotalNumberOfGuess;
     }
 }
