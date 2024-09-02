@@ -48,6 +48,11 @@ public class GameController : IGameController
             _userInterfaceManager.DisplayMessage(result.ResultMessage + "\n");
         } while (!result.IsCorrect);
 
+        FinaliseGame(playerName, numberOfGuesses);
+    }
+
+    private void FinaliseGame(string playerName, int numberOfGuesses)
+    {
         _scoreboardManager.WritePlayerResult(playerName, numberOfGuesses);
         DisplayLeaderboard();
         _userInterfaceManager.DisplayMessage("Correct, it took " + numberOfGuesses + " guesses");

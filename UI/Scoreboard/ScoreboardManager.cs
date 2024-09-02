@@ -25,17 +25,27 @@ public class ScoreboardManager : IScoreboardManager
     public List<PlayerData> GetPlayerResults()
     {
         var leaderboard = new List<PlayerData>();
-        using (var fileInput = new StreamReader(ResultFilename))
+
+        try
         {
-            string line;
-            while ((line = fileInput.ReadLine()) != null)
+            using (var fileInput = new StreamReader(ResultFilename))
             {
-                var parsedPlayerData = ParsePlayerData(line);
-                AddOrUpdatePlayer(leaderboard, parsedPlayerData);
+                string line;
+                while ((line = fileInput.ReadLine()) != null)
+                {
+                    var parsedPlayerData = ParsePlayerData(line);
+                    AddOrUpdatePlayer(leaderboard, parsedPlayerData);
+                }
             }
+
+            SortLeaderboard(leaderboard);
+        }
+        catch (FileNotFoundException e)
+        {
+            Console.WriteLine("The file could not be read:");
+            Console.WriteLine(e.Message);
         }
 
-        SortLeaderboard(leaderboard);
         return leaderboard;
     }
 
