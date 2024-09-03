@@ -11,7 +11,7 @@ public class GameLogic : IGameLogic
         var correctAnswer = new StringBuilder();
         var randomGenerator = new Random();
         
-        for (int i = 0; i < 4; i++)
+        for (var i = 0; i < 4; i++)
         {
             var index = randomGenerator.Next(availableDigits.Count);
             var chosenDigit = availableDigits[index];
