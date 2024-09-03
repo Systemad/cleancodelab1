@@ -36,26 +36,38 @@ public class GameLogicTest
     public void CheckBullsAndCows_ShouldReturnFourBullsForCorrectGuess()
     {
         var gameLogic = new GameLogic();
-        var result = gameLogic.CheckBullsAndCows(Constants.CorrectAnswerOne, Constants.CorrectGuessOne);
+        var result = gameLogic.CheckBullsAndCows(Constants.CorrectAnswer, Constants.CorrectGuess);
 
-        Assert.Equal(Constants.FourBulls, result.ResultMessage); 
+        Assert.Equal(Constants.FourBullsResult, result.ResultMessage); 
     }
     
     [Fact]
     public void CheckBullsAndCows_ShouldReturnNoBullsOrCowsForNonMatchingGuess()
     {
         var gameLogic = new GameLogic();
-        var result = gameLogic.CheckBullsAndCows(Constants.CorrectAnswerOne, Constants.RandomGuessOne);
+        var result = gameLogic.CheckBullsAndCows(Constants.CorrectAnswer, Constants.ZeroBullsZeroCowsGuess);
 
-        Assert.Equal(Constants.ZeroBullsZeroCows, result.ResultMessage); 
+        Assert.Equal(Constants.ZeroBullsZeroCowsResult, result.ResultMessage); 
     }
     
     [Fact]
     public void CheckBullsAndCows_ShouldReturnCorrectFormatForMixedBullsAndCows()
     {
         var gameLogic = new GameLogic();
-        var result = gameLogic.CheckBullsAndCows(Constants.CorrectAnswerOne, Constants.RandomGuessTwo);
+        var result = gameLogic.CheckBullsAndCows(Constants.CorrectAnswer, Constants.TwoBullsTwoCowsGuess);
 
-        Assert.Equal(Constants.TwoBullsTwoCows, result.ResultMessage); 
+        Assert.Equal(Constants.TwoBullsTwoCowsResult, result.ResultMessage); 
+    }
+    
+    [Theory]
+    [InlineData(Constants.CorrectAnswer, Constants.CorrectAnswer, Constants.FourBullsResult)]
+    [InlineData(Constants.CorrectAnswer, Constants.ZeroBullsZeroCowsGuess, Constants.ZeroBullsZeroCowsResult)]
+    [InlineData(Constants.CorrectAnswer, Constants.TwoBullsTwoCowsGuess, Constants.TwoBullsTwoCowsResult)]
+    public void CheckBullsAndCows_ShouldReturnCorrectResult(string correctAnswer, string guess, string expectedResult)
+    {
+        var gameLogic = new GameLogic();
+        var result = gameLogic.CheckBullsAndCows(correctAnswer, guess);
+
+        Assert.Equal(expectedResult, result.ResultMessage);
     }
 }
