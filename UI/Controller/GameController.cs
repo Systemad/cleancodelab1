@@ -1,4 +1,5 @@
-﻿using UI.Scoreboard;
+﻿using UI.Logic;
+using UI.Scoreboard;
 using UI.UserInterface;
 
 namespace UI.Controller;

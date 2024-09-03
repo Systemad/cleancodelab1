@@ -1,4 +1,4 @@
-using UI;
+using UI.Logic;
 
 namespace Testing;
 

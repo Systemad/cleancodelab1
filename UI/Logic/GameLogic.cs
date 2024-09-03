@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace UI;
+namespace UI.Logic;
 
 public class GameLogic : IGameLogic
 {
