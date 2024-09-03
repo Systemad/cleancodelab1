@@ -7,18 +7,10 @@ public class ScoreboardManager : IScoreboardManager
 
     public void WritePlayerResult(string playerName, int numberOfGuesses)
     {
-        try
+        using (var resultOutput = new StreamWriter(ResultFilename, append: true))
         {
-            using (var resultOutput = new StreamWriter(ResultFilename, append: true))
-            {
-                resultOutput.WriteLine($"{playerName}{Separator}{numberOfGuesses}");
-                resultOutput.Close();
-            }
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine("The file could not be read:");
-            Console.WriteLine(e.Message);
+            resultOutput.WriteLine($"{playerName}{Separator}{numberOfGuesses}");
+            resultOutput.Close();
         }
     }
 
